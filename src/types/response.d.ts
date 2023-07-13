@@ -1,7 +1,7 @@
 import { Module } from "module"
-import { AppError } from "../models/error-model"
+import { IClofyError } from "../models/error-model"
 
 export type IResponse<T> = {
     data: T
     error?: false
-} | { error: AppError }
+} | { error: IClofyError }

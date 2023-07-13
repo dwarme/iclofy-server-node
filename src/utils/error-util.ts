@@ -1,7 +1,7 @@
 import { GraphQLError } from "graphql";
-import { AppError, AppUnknownError } from "../models/AppError";
+import { IClofyError, IClofyUnknownError } from "../models/IClofyError";
 
-export const graphQLError = (message: string, options?: { [attributeName: string]: any; }, appError?: AppError) => {
+export const graphQLError = (message: string, options?: { [attributeName: string]: any; }, appError?: IClofyError) => {
     const _ = undefined;
     if (appError) {
         options = {
@@ -23,7 +23,7 @@ export const graphQLError = (message: string, options?: { [attributeName: string
 export const graphQLErrorUnknow = graphQLError(
     'An error occured',
     {},
-    new AppUnknownError({
+    new IClofyUnknownError({
         type: 'internal_error',
         code: 'unknown',
         message: "An error occured",

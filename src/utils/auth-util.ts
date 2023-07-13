@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import Iron from '@hapi/iron'
-import { MAX_AGE, setTokenCookie, getTokenCookie } from './auth-cookies'
+import { MAX_AGE, setTokenCookie, getTokenCookie } from './auth-cookies-util'
 import { IAuthLoginSession, IAuthTokenData } from "../types/auth";
-import { AppError } from "../models/AppError";
+import { IClofyError } from "../models/IClofyError";
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET!
 
@@ -26,7 +26,7 @@ export async function getLoginSession(req: Request){
 
     // Validate the expiration date of the session
     if(Date.now() > expiresAt){
-        throw AppError.generate({
+        throw IClofyError.generate({
             type: 'cookie_error',
             code: 'cookie_token_expired',
             message: 'Session expired'        

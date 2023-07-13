@@ -1,5 +1,5 @@
 export type ObjectErrorType =
-    | 'AppError'
+    | 'IClofyError'
     | 'AppInvalidRequestError'
     | 'AppAuthenticationError'
     | 'AppAPIError'
@@ -18,11 +18,11 @@ export type RawErrorType =
     | 'jwt_error'
     | 'cookie_error'
 
-export type AppRawError = {
+export type IClofyRawError = {
     message?: string;
     type: RawErrorType;
     statusCode?: number;
-    code?: AppErrorCode;
+    code?: IClofyErrorCode;
     detail?: string;
 }
 
@@ -38,7 +38,7 @@ type CustomerInputErrorCode =
     | 'CONTAINS_URL'
     | 'ADDRESS_NOT_FOUND'
 
-export type AppErrorCode =
+export type IClofyErrorCode =
     & CustomerInputErrorCode
     | 'permission_required'
     | 'authentication_required'
@@ -60,7 +60,7 @@ export type AppErrorCode =
 
 export type APIClientRequestErrorData = {
     type: ObjectErrorType;
-    code?: AppErrorCode;
+    code?: IClofyErrorCode;
     detail?: string;
     statusCode?: number;
     message?: string;

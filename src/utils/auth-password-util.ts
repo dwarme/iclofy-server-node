@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { AppAuthenticationError } from '../models/AppError';
+import { IClofyAuthenticationError } from '../models/IClofyError';
 
 export async function hashPassword(plainText: string) {
     try {
@@ -9,7 +9,7 @@ export async function hashPassword(plainText: string) {
 
     } catch (error) {
 
-        throw new AppAuthenticationError({
+        throw new IClofyAuthenticationError({
             type: 'authentication_error',
             detail: 'password',
             message: 'An error occured while securing password'
@@ -25,7 +25,7 @@ export async function validatePassword(plainText: string, hashedText: string) {
         return match;
 
     } catch (error) {
-        throw new AppAuthenticationError({
+        throw new IClofyAuthenticationError({
             type: 'authentication_error',
             code: 'password_incorrect',
             detail: 'password',
