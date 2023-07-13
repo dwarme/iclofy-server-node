@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.use('/graphql', graphqlHTTP({
     schema,
-    graphiql: true
+    graphiql: process.env.NODE_ENV === 'development'
 }))
 
 const apiRoutes = router
