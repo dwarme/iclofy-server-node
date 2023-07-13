@@ -6,5 +6,5 @@ router.get('/', (_req, res)=>{
     res.render('index.ejs', {})
 })
 
-const webRouters = router
-export default webRouters;
+const webRoutes = router
+export default webRoutes;

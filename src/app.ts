@@ -3,8 +3,8 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import path from 'path'
 import { CORS_ORIGIN } from './utils/constants-util'
-import webRouters from './router/web'
-import apiRouters from './router/api'
+import webRoutes from './routes/web'
+import apiRoutes from './routes/api'
 
 const app = express()
 const PORT = 8069
@@ -20,8 +20,8 @@ app.use(cors({
     optionsSuccessStatus: 200
 }))
 
-app.use(webRouters)
-app.use(apiRouters)
+app.use(webRoutes)
+app.use(apiRoutes)
 
 app.listen(PORT, () =>
   console.log(`App is listening at http://localhost:${PORT}`)

@@ -9,5 +9,5 @@ router.use('/graphql', graphqlHTTP({
     graphiql: true
 }))
 
-const apiRouters = router
-export default apiRouters
+const apiRoutes = router
+export default apiRoutes
