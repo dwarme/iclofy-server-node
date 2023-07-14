@@ -10,7 +10,8 @@ CREATE TABLE users(
     email VARCHAR(150) NOT NULL,
     password VARCHAR(300) NOT NULL DEFAULT '',
     permissions VARCHAR[] NOT NULL,
-    UNIQUE(id)
+    UNIQUE(id),
+    UNIQUE(email)
 );
 
 CREATE TABLE posts (
