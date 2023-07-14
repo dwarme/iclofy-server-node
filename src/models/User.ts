@@ -8,6 +8,18 @@ class User {
     static async create(input: IUserCreateInput): Promise<IUser> {
         // Valid input
         // Check if email is already taked
+        try{
+            const _user: IUser = await this.retrieve(input.email)
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'user_already_exists'
+            })
+
+        }catch(error: any){
+            if ( !(error instanceof IClofyUserError )) throw error
+            if(error.code != 'user_not_found') throw error
+        }
+
         // hash password
         const passwordHashed = await hashPassword(input.password)
         // insert data on database
