@@ -1,6 +1,7 @@
 import { IAuthLoginInput, IUser, IUserCreateInput } from "../../types";
 import { graphQLError, graphQLErrorUnknow } from "../../utils/error-util";
 import apiController from "../../controllers/apiController";
+import { removeTokenCookie } from "../../utils/auth-cookies-util";
 
 const authResolvers = {
     Mutation: {
@@ -11,7 +12,7 @@ const authResolvers = {
         async signIn(_parent: any, args: { input: IAuthLoginInput }, context: any, _info: any) {
             try {
 
-                const {user} = await apiController.signIn(context.req, args.input)
+                const {user} = await apiController.signIn(context.req, context.res, args.input)
                 return {user}
 
             } catch (error: any) {
@@ -21,6 +22,11 @@ const authResolvers = {
 
                 throw graphQLErrorUnknow
             }
+        },
+
+        async signOut(_parent: any, _args: any, context: any, _info: any){
+            removeTokenCookie(context.res)
+            return {status: true}
         }
     }
 }

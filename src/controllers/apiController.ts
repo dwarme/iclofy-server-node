@@ -1,15 +1,20 @@
-import { Request } from "express"
+import { Request, Response } from "express"
 import { IClofyAuthenticationError } from "../models/IClofyError"
 import User from "../models/User"
 import { IAuthLoginInput, IUser } from "../types"
-import { getLoginSession } from "../utils/auth-util"
+import { getLoginSession, setLoginSession } from "../utils/auth-util"
 import { graphQLError } from "../utils/error-util"
 import { validatePassword } from "../utils/auth-password-util"
+import { IAuthLoginSession } from "../types/auth"
 
-const signIn = async (req: Request, input: IAuthLoginInput)=>{
-    const session = await getLoginSession(req)
+async function signUp(){
 
-    if(session){
+}
+
+async function signIn(req: Request, res: Response, input: IAuthLoginInput){
+    const sessionCurrent = await getLoginSession(req)
+
+    if(sessionCurrent){
         throw graphQLError('', {}, new IClofyAuthenticationError({
             type: 'authentication_error',
             code: 'already_connected',
@@ -19,7 +24,7 @@ const signIn = async (req: Request, input: IAuthLoginInput)=>{
 
     const user: IUser = await User.retrieve(input.email)
     
-    if(!validatePassword(input.password, user.password)){
+    if(!(await validatePassword(input.password, user.password))){
         throw graphQLError('', {}, new IClofyAuthenticationError({
             type: 'authentication_error',
             code: 'password_incorrect',
@@ -27,6 +32,12 @@ const signIn = async (req: Request, input: IAuthLoginInput)=>{
         }))
     }
 
+    const session: IAuthLoginSession = {
+        id: user.id,
+        email: user.email
+    }
+
+    await setLoginSession(res, session)
     return {user}
 }
 

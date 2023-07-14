@@ -1,4 +1,5 @@
 export interface IAuthLoginSession{
+    id: number;
     email: string
 }
 
