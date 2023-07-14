@@ -1,4 +1,4 @@
-const DB_USER_QUERIES = {
+const DB_QUERIES_USER = {
     select: {
         one: {
             byEmail: `SELECT * FROM users WHERE email = $1`,
@@ -54,4 +54,4 @@ const DB_USER_QUERIES = {
     delete: `DELETE FROM users WHERE id = $1`
 }
 
-export default DB_USER_QUERIES;
+export default DB_QUERIES_USER;

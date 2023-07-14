@@ -1,4 +1,4 @@
-import DB_USER_QUERIES from "../database/queries/user-queries";
+import DB_QUERIES_USER from "../database/queries/user-queries";
 import { IUser, IUserCreateInput, IUserPermission, IUserUpdateNameInput } from "../types";
 import { hashPassword } from "../utils/auth-password-util";
 import runQuery from "../utils/db-queries-util";
@@ -12,7 +12,7 @@ class User {
         const passwordHashed = await hashPassword(input.password)
         // insert data on database
         const queryResult = await runQuery.modifying<IUser>(
-            DB_USER_QUERIES.add,
+            DB_QUERIES_USER.add,
             [
                 input.firstname,
                 input.lastname,
@@ -40,7 +40,7 @@ class User {
 
         // Retrieve user from database
         const queryResult = await runQuery.select<IUser>(
-            DB_USER_QUERIES.select.one.byEmail,
+            DB_QUERIES_USER.select.one.byEmail,
             [email]
         )
 
@@ -65,7 +65,7 @@ class User {
         // Valid input
 
         const queryResult = await runQuery.modifying<IUser>(
-            DB_USER_QUERIES.update.name,
+            DB_QUERIES_USER.update.name,
             [
                 input.firstname,
                 input.lastname, userId
@@ -94,7 +94,7 @@ class User {
         // Valid input
 
         const queryResult = await runQuery.modifying<IUser>(
-            DB_USER_QUERIES.update.email,
+            DB_QUERIES_USER.update.email,
             [
                 newEmail,
                 userId
@@ -125,7 +125,7 @@ class User {
         const passwordHashed = await hashPassword(newPassword)
 
         const queryResult = await runQuery.modifying<IUser>(
-            DB_USER_QUERIES.update.password,
+            DB_QUERIES_USER.update.password,
             [
                 passwordHashed,
                 userId
@@ -153,7 +153,7 @@ class User {
         // Valid input
 
         const queryResult = await runQuery.modifying<IUser>(
-            DB_USER_QUERIES.update.permissions,
+            DB_QUERIES_USER.update.permissions,
             [
                 permissions,
                 userId
