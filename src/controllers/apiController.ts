@@ -16,19 +16,9 @@ async function signUp(req: Request, res: Response, input: IUserCreateInput){
             message: "Already connected"
         }))
     } 
-
-    try{
-
-       const _: IUser = await User.retrieve(input.email); 
-
-    }catch(error: any){
-        if( !(error instanceof IClofyUserError && error.code === 'user_not_found') ){
-            throw error
-        }
-    }
     
     const user = await User.create(input)
-    return {user}
+    return { user }
 }
 
 async function signIn(req: Request, res: Response, input: IAuthLoginInput){
@@ -57,7 +47,7 @@ async function signIn(req: Request, res: Response, input: IAuthLoginInput){
     }
 
     await setLoginSession(res, session)
-    return {user}
+    return { user }
 }
 
 const apiController = {
