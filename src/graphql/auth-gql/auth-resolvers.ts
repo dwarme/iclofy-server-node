@@ -1,4 +1,4 @@
-import { IAuthLoginInput, IUser, IUserCreateInput } from "../../types";
+import { IAuthLoginInput, IUserCreateInput } from "../../types";
 import { graphQLError, graphQLErrorUnknow } from "../../utils/error-util";
 import apiController from "../../controllers/apiController";
 import { removeTokenCookie } from "../../utils/auth-cookies-util";
