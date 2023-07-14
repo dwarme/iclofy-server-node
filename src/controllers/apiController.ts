@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { IClofyAuthenticationError, IClofyUserError } from "../models/IClofyError"
+import { IClofyAuthenticationError } from "../models/IClofyError"
 import User from "../models/User"
 import { IAuthLoginInput, IUser, IUserCreateInput } from "../types"
 import { getLoginSession, setLoginSession } from "../utils/auth-util"

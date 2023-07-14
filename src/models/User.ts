@@ -1,28 +1,180 @@
-import { IUser, IUserCreateInput } from "../types";
+import DB_USER_QUERIES from "../database/queries/user-queries";
+import { IUser, IUserCreateInput, IUserPermission, IUserUpdateNameInput } from "../types";
+import { hashPassword } from "../utils/auth-password-util";
+import runQuery from "../utils/db-queries-util";
+import { IClofyUserError } from "./IClofyError";
 
-class User{
-    static async create(input: IUserCreateInput): Promise<IUser>{
+class User {
+    static async create(input: IUserCreateInput): Promise<IUser> {
+        // Valid input
+        // Check if email is already taked
+        // hash password
+        const passwordHashed = await hashPassword(input.password)
+        // insert data on database
+        const queryResult = await runQuery.modifying<IUser>(
+            DB_USER_QUERIES.add,
+            [
+                input.firstname,
+                input.lastname,
+                input.email,
+                passwordHashed,
+                [] // Permissions
+            ]
+        )
+
+        if (queryResult.error) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'unknown',
+                statusCode: 500
+            })
+        }
+
+        const user = queryResult.rowsEffected[0]
+        return user
 
     }
 
-    static async retrieve(email: string): Promise<IUser>{
-        
+    static async retrieve(email: string): Promise<IUser> {
+        // Valid input
+
+        // Retrieve user from database
+        const queryResult = await runQuery.select<IUser>(
+            DB_USER_QUERIES.select.one.byEmail,
+            [email]
+        )
+
+        if (queryResult.error) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'unknown'
+            })
+        }
+
+        if (queryResult.rows.length == 0) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'user_not_found'
+            })
+        }
+
+        return queryResult.rows[0]
     }
 
-    static async updateName(): Promise<IUser>{
+    static async updateName(userId: number, input: IUserUpdateNameInput): Promise<IUser> {
+        // Valid input
 
+        const queryResult = await runQuery.modifying<IUser>(
+            DB_USER_QUERIES.update.name,
+            [
+                input.firstname,
+                input.lastname, userId
+
+            ]
+        )
+
+        if (queryResult.error) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'unknown'
+            })
+        }
+
+        if (queryResult.rowsEffected.length == 0) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'user_not_found'
+            })
+        }
+
+        return queryResult.rowsEffected[0]
     }
 
-    static async updateEmail(): Promise<IUser>{
+    static async updateEmail(userId: string, newEmail: string): Promise<IUser> {
+        // Valid input
 
+        const queryResult = await runQuery.modifying<IUser>(
+            DB_USER_QUERIES.update.email,
+            [
+                newEmail,
+                userId
+            ]
+        )
+
+        if (queryResult.error) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'unknown'
+            })
+        }
+
+        if (queryResult.rowsEffected.length == 0) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'user_not_found'
+            })
+        }
+
+        return queryResult.rowsEffected[0]
     }
 
-    static async updatePassword(): Promise<IUser>{
+    static async updatePassword(userId: number, newPassword: string): Promise<IUser> {
+        // Valid input
 
+        // Hash password
+        const passwordHashed = await hashPassword(newPassword)
+
+        const queryResult = await runQuery.modifying<IUser>(
+            DB_USER_QUERIES.update.password,
+            [
+                passwordHashed,
+                userId
+            ]
+        )
+
+        if (queryResult.error) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'unknown'
+            })
+        }
+
+        if (queryResult.rowsEffected.length == 0) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'user_not_found'
+            })
+        }
+
+        return queryResult.rowsEffected[0]
     }
 
-    static async updatePermissions(): Promise<IUser>{
+    static async updatePermissions(userId: number, permissions: IUserPermission[]): Promise<IUser> {
+        // Valid input
 
+        const queryResult = await runQuery.modifying<IUser>(
+            DB_USER_QUERIES.update.permissions,
+            [
+                permissions,
+                userId
+            ]
+        )
+
+        if (queryResult.error) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'unknown'
+            })
+        }
+
+        if (queryResult.rowsEffected.length == 0) {
+            throw new IClofyUserError({
+                type: 'user_error',
+                code: 'user_not_found'
+            })
+        }
+
+        return queryResult.rowsEffected[0]
     }
 }
 

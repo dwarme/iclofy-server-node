@@ -24,7 +24,7 @@ export interface IUserCreateInput{
     password: string;
 }
 
-export interface IUserUpdateInput{
+export interface IUserUpdateNameInput{
     firstname: string;
     lastname: string;
 }
