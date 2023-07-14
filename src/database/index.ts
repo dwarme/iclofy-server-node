@@ -1,6 +1,7 @@
 import { Pool } from 'pg'
 import dotenvConfig from '../utils/dotenv-config-util';
 import { exit } from 'process';
+import { iclofyErrorLogger } from '../utils/error-util';
 
 dotenvConfig()
 
@@ -14,8 +15,8 @@ try {
         port: process.env.DATABASE_PORT as unknown as number
     });
 
-} catch (err) {
-    console.log(err)
+} catch (error) {
+    iclofyErrorLogger.error(error)
     exit(0)
 }
 

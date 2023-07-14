@@ -1,6 +1,6 @@
 import database from '../database'
-import winston = require('winston')
 import { IClofyAPIError, IClofyUnknownError } from '../models/IClofyError'
+import { iclofyErrorLogger } from './error-util'
 
 interface QueryResponse{
     error?: false
@@ -19,12 +19,6 @@ interface QueryModifyingResponse<T> extends QueryResponse{
     rowsEffected: T[]
 }
 
-const logger = winston.createLogger({
-    transports: [
-      new winston.transports.Console(),
-      new winston.transports.File({ filename: 'error.log', level: 'error' })
-    ]
-});
 
 async function runSelectQuery <T>(query: string, params: any[]): Promise<T[]>{
     try {
@@ -35,7 +29,7 @@ async function runSelectQuery <T>(query: string, params: any[]): Promise<T[]>{
             })
         })
     } catch (error) {
-        logger.error(error);
+        iclofyErrorLogger.error(error);
         throw error;
     }
 }
@@ -49,7 +43,7 @@ async function runModifyingQuery<T>(query: string, params: any[]): Promise<{ row
             })
         })
     } catch (err) {
-        logger.error(err)
+        iclofyErrorLogger.error(err)
         throw err
     }
 }

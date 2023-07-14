@@ -1,5 +1,6 @@
 import { GraphQLError } from "graphql";
 import { IClofyError, IClofyUnknownError } from "../models/IClofyError";
+import winston from "winston";
 
 export const graphQLError = (message: string, options?: { [attributeName: string]: any; }, appError?: IClofyError) => {
     const _ = undefined;
@@ -30,3 +31,10 @@ export const graphQLErrorUnknow = graphQLError(
         statusCode: 500,
     })
 )
+
+export const iclofyErrorLogger = winston.createLogger({
+    transports: [
+      new winston.transports.Console(),
+      new winston.transports.File({ filename: 'error.log', level: 'error' })
+    ]
+});
