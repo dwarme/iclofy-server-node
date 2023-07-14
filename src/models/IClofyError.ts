@@ -56,7 +56,7 @@ export class IClofyError extends Error {
 
     readonly raw: unknown;
 
-    readonly object: string = 'app_error'
+    readonly object: string = 'iclofy_error'
     
 }
 // Specific IClofy Error types:

@@ -13,9 +13,9 @@ const authResolvers = {
 
                 const {user} = await apiController.signIn(context.req, args.input)
                 return {user}
-                
+
             } catch (error: any) {
-                if ('object' in error && error.object == 'app_error') {
+                if ('object' in error && error.object == 'iclofy_error') {
                     throw graphQLError(error.message, {}, error)
                 }
 
