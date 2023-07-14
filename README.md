@@ -34,7 +34,8 @@ CREATE TABLE post_media(
     id SERIAL PRIMARY KEY NOT NULL,
     post_id INT NOT NULL,
     type VARCHAR(20),
-    url VARCHAR(500) NOT NULL,
+    url_image VARCHAR(500) NOT NULL,
+    url_video VARCHAR(500) NOT NULL,
     FOREIGN KEY(post_id) REFERENCES posts(id),
     UNIQUE(id)
 )
