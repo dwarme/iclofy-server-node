@@ -7,7 +7,7 @@ import { graphQLError } from "../utils/error-util"
 import { validatePassword } from "../utils/auth-password-util"
 import { IAuthLoginSession } from "../types/auth"
 
-async function signUp(req: Request, res: Response, input: IUserCreateInput){
+async function signUp(req: Request, _res: Response, input: IUserCreateInput){
     const sessionCurrent = await getLoginSession(req)
     if(sessionCurrent){
         throw graphQLError('', {}, new IClofyAuthenticationError({
