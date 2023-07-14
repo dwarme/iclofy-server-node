@@ -24,6 +24,7 @@ export type IClofyRawError = {
     statusCode?: number;
     code?: IClofyErrorCode;
     detail?: string;
+    invalideFields?: string[];
 }
 
 type CustomerInputErrorCode =

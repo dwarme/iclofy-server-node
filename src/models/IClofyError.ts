@@ -9,6 +9,7 @@ export class IClofyError extends Error {
         this.message = raw.message ?? '';
         this.code = raw.code;
         this.detail = raw.detail;
+        this.invalidFields = raw.invalideFields;
         this.statusCode = raw.statusCode;
     }
 
@@ -48,6 +49,8 @@ export class IClofyError extends Error {
     readonly code?: IClofy.IClofyErrorCode;
 
     readonly detail?: string;
+
+    readonly invalidFields?: string[];
 
     /**
      * Typically a 4xx or 5xx.
