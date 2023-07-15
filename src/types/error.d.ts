@@ -12,6 +12,7 @@ export type ObjectErrorType =
 export type RawErrorType =
     | 'invalid_request_error'
     | 'authentication_error'
+    | 'permission_error'
     | 'internal_error'
     | 'api_error'
     | 'user_error'

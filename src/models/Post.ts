@@ -1,11 +1,11 @@
 import DB_QUERIES_POST from "../database/queries/post-queries";
-import { IPost, IPostCreateInput, IPostListing } from "../types";
+import { IPost, IPostCreateInput, IPostListInput, IPostListing } from "../types";
 import runQuery from "../utils/db-queries-util";
 import { IClofyPostError } from "./IClofyError";
 
 class Post{
 
-    static async create(input: IPostCreateInput): Promise<IPost>{
+    static async add(input: IPostCreateInput): Promise<IPost>{
         
         // sanitize and validate input
 
@@ -80,19 +80,19 @@ class Post{
         return queryResult.rows[0]
     }
 
-    static async list(page: number, tag: string): Promise<IPost[]>{
+    static async list(input: IPostListInput): Promise<IPost[]>{
 
         // Sanitize and validate input
 
         const LIMIT = 8;
-        const OFFSET = page * LIMIT;
-        const queryParams: any[] = [page]
+        const OFFSET = input.page * LIMIT;
+        const queryParams: any[] = [input.page]
         let query: string
 
-        if(tag.trim().length > 0) {
+        if(input.tag.trim().length > 0) {
 
             query = DB_QUERIES_POST.select.filter
-            queryParams.push(tag)
+            queryParams.push(input.tag)
 
         }else{
             query = DB_QUERIES_POST.select.all
@@ -117,7 +117,7 @@ class Post{
         return queryResult.rows
     }
 
-    static async update(id: number, input: IPostListing): Promise<IPost>{
+    static async update(input: IPostListing): Promise<IPost>{
 
         // Sanitize and validate input
 
@@ -136,7 +136,7 @@ class Post{
                 input.post_created_on,
                 input.is_visible,
                 input.tags,
-                id
+                input.id
             ]
         )
 

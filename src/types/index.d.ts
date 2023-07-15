@@ -71,6 +71,11 @@ export interface IPostCreateInput {
 
 export interface IPostUpdateInput extends IPostListing { }
 
+export interface IPostListInput {
+    page: number;
+    tag: string;
+}
+
 export interface IAuthLoginInput{
     email: string;
     password: string;
