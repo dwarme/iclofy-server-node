@@ -80,8 +80,41 @@ class Post{
         return queryResult.rows[0]
     }
 
-    static async list(page: number, tag: string): Promise<IPost>{
+    static async list(page: number, tag: string): Promise<IPost[]>{
 
+        // Sanitize and validate input
+
+        const LIMIT = 8;
+        const OFFSET = page * LIMIT;
+        const queryParams: any[] = [page]
+        let query: string
+
+        if(tag.trim().length > 0) {
+
+            query = DB_QUERIES_POST.select.filter
+            queryParams.push(tag)
+
+        }else{
+            query = DB_QUERIES_POST.select.all
+        }
+        
+        queryParams.push(LIMIT)
+        queryParams.push(OFFSET)
+
+        const queryResult = await runQuery.select<IPost>(
+            query,
+            queryParams
+        )
+
+        if (queryResult.error) {
+            throw new IClofyPostError({
+                message: 'Post not found',
+                type: 'post_error',
+                code: 'unknown'
+            })
+        }
+
+        return queryResult.rows
     }
 
     static async update(id: number, input: IPostListing): Promise<IPost>{
