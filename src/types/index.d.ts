@@ -29,6 +29,11 @@ export interface IUserUpdateNameInput{
     lastname: string;
 }
 
+export interface IUserUpdatePasswordInput{
+    password_old: string;
+    password_new: string;
+}
+
 export interface IAuthLoginInput{
     email: string;
     password: string;

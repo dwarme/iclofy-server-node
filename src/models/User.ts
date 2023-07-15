@@ -2,7 +2,7 @@ import DB_QUERIES_USER from "../database/queries/user-queries";
 import { IUser, IUserCreateInput, IUserPermission, IUserUpdateNameInput } from "../types";
 import { hashPassword } from "../utils/auth-password-util";
 import runQuery from "../utils/db-queries-util";
-import sanitizeValidate from "../utils/validate-input-util";
+import sanitizeValidate from "../utils/validate-sanitize-util";
 import { IClofyUserError } from "./IClofyError";
 
 class User {
@@ -127,7 +127,7 @@ class User {
         return queryResult.rowsEffected[0]
     }
 
-    static async updateEmail(userId: string, newEmail: string): Promise<IUser> {
+    static async updateEmail(userId: number, newEmail: string): Promise<IUser> {
 
         if( !sanitizeValidate.userUpdateEmail(newEmail) ){
             throw new IClofyUserError({

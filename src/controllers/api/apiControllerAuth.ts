@@ -1,11 +1,11 @@
 import { Request, Response } from "express"
-import { IClofyAuthenticationError } from "../models/IClofyError"
-import User from "../models/User"
-import { IAuthLoginInput, IUser, IUserCreateInput } from "../types"
-import { getLoginSession, setLoginSession } from "../utils/auth-util"
-import { graphQLError } from "../utils/error-util"
-import { validatePassword } from "../utils/auth-password-util"
-import { IAuthLoginSession } from "../types/auth"
+import { IClofyAuthenticationError } from "../../models/IClofyError"
+import User from "../../models/User"
+import { IAuthLoginInput, IUser, IUserCreateInput } from "../../types"
+import { getLoginSession, setLoginSession } from "../../utils/auth-util"
+import { graphQLError } from "../../utils/error-util"
+import { validatePassword } from "../../utils/auth-password-util"
+import { IAuthLoginSession } from "../../types/auth"
 
 async function signUp(req: Request, _res: Response, input: IUserCreateInput){
     const sessionCurrent = await getLoginSession(req)
@@ -50,9 +50,9 @@ async function signIn(req: Request, res: Response, input: IAuthLoginInput){
     return { user }
 }
 
-const apiController = {
+const apiControllerAuth = {
     signUp,
     signIn
 }
 
-export default apiController;
+export default apiControllerAuth;

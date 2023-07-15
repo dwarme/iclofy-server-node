@@ -1,11 +1,11 @@
 import { IAuthLoginInput, IUserCreateInput } from "../../types";
 import { graphQLError, graphQLErrorUnknow } from "../../utils/error-util";
-import apiController from "../../controllers/apiController";
+import apiController from "../../controllers/api/apiControllerAuth";
 import { removeTokenCookie } from "../../utils/auth-cookies-util";
 
 const authResolvers = {
     Mutation: {
-        async signUp(_parent: any, args: { input: IUserCreateInput }, context: any, _info: any) {
+        async authSignUp(_parent: any, args: { input: IUserCreateInput }, context: any, _info: any) {
             try {
 
                 const { user } = await apiController.signUp(context.req, context.res, args.input)
@@ -20,7 +20,7 @@ const authResolvers = {
             }
         },
 
-        async signIn(_parent: any, args: { input: IAuthLoginInput }, context: any, _info: any) {
+        async authSignIn(_parent: any, args: { input: IAuthLoginInput }, context: any, _info: any) {
             try {
 
                 const { user } = await apiController.signIn(context.req, context.res, args.input)
