@@ -40,15 +40,15 @@ const DB_QUERIES_POST = {
             post_title = $7,
             post_description = $8,
             post_call_to_action_link = $9,
-            post_created_on = $11,
+            post_created_on = $10,
             updated_on = NOW(),
-            is_visible = $12,
-            tags = $13
-        WHERE id = $14
+            is_visible = $11,
+            tags = $12
+        WHERE id = $13
         RETURNING *
     `,
 
-    delete: `DELETE FROM posts WHERE id = $1`
+    delete: `DELETE FROM posts WHERE post_id = $1`
 }
 
 export default DB_QUERIES_POST;

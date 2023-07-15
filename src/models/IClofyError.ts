@@ -31,6 +31,8 @@ export class IClofyError extends Error {
                 return new IClofyCookieError(rawIClofyError)
             case 'user_error':
                 return new IClofyUserError(rawIClofyError)
+            case 'post_error':
+                return new IClofyPostError(rawIClofyError)
 
             default:
                 return new IClofyUnknownError(rawIClofyError)
@@ -89,6 +91,8 @@ export class IClofyJwtError extends IClofyError {}
 export class IClofyCookieError extends IClofyError {}
 
 export class IClofyUserError extends IClofyError {}
+
+export class IClofyPostError extends IClofyAPIError {}
 
 /**
  * Any other error from IClofy not specifically captured above
