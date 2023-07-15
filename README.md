@@ -33,7 +33,7 @@ CREATE TABLE posts (
 
 CREATE TABLE post_media(
     id SERIAL PRIMARY KEY NOT NULL,
-    post_id INT NOT NULL,
+    posts_id INT NOT NULL,
     type VARCHAR(20),
     url_image VARCHAR(500) NOT NULL,
     url_video VARCHAR(500) NOT NULL,
