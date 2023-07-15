@@ -66,7 +66,7 @@ export interface IPostCreateInput {
     post_call_to_action_link: string;
     post_created_on: string;
     is_visible: boolean;
-    tags: string;
+    tags: string[];
 }
 
 export interface IPostUpdateInput extends IPostListing { }

@@ -14,7 +14,7 @@ class Post{
 
     }
 
-    static async update(input: IPostListing): Promise<IPost>{
+    static async update(id: number, input: IPostListing): Promise<IPost>{
 
     }
 
