@@ -20,6 +20,8 @@ CREATE TABLE posts (
     post_type VARCHAR(20) NOT NULL,
     post_id VARCHAR(20),
     post_actor_id VARCHAR(20),
+    post_video_url VARCHAR(500),
+    post_image_url VARCHAR(500),
     post_title VARCHAR(150) NOT NULL,
     post_description VARCHAR(500),
     post_call_to_action_link NOT NULL,
@@ -28,15 +30,5 @@ CREATE TABLE posts (
     updated_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_visible BOOLEAN NOT NULL DEFAULT false,
     tags VARCHAR(500) NOT NULL,
-    UNIQUE(id)
-)
-
-CREATE TABLE post_media(
-    id SERIAL PRIMARY KEY NOT NULL,
-    posts_id INT NOT NULL,
-    type VARCHAR(20),
-    url_image VARCHAR(500) NOT NULL,
-    url_video VARCHAR(500) NOT NULL,
-    FOREIGN KEY(post_id) REFERENCES posts(id),
     UNIQUE(id)
 )

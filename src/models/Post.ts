@@ -1,22 +1,24 @@
+import { IPost, IPostCreateInput, IPostListing } from "../types";
+
 class Post{
 
-    static async create(){
+    static async create(input: IPostCreateInput): Promise<IPost>{
+        
+    }
+
+    static async retrieve(postId: string): Promise<IPost>{
 
     }
 
-    static async retrieve(){
+    static async list(page: number, tag: string): Promise<IPost>{
 
     }
 
-    static async list(page: number, tag: string){
+    static async update(input: IPostListing): Promise<IPost>{
 
     }
 
-    static async update(){
-
-    }
-
-    static async remove(){
+    static async remove(id: number): Promise<IPost>{
 
     }
 }
