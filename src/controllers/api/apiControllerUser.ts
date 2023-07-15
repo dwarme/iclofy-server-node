@@ -5,7 +5,7 @@ import User from "../../models/User";
 import { validatePassword } from "../../utils/auth-password-util";
 import { IClofyAuthenticationError } from "../../models/IClofyError";
 
-async function user(req: Request, res: Response){
+async function user(req: Request, _res: Response){
 
     const session = await getLoginSession(req);
     const user = await User.retrieve(session.email);
@@ -20,14 +20,14 @@ async function updateName(req: Request, _res: Response, input: IUserUpdateNameIn
     return { user }
 }
 
-async function updateEmail(req: Request, res: Response, email: string){
+async function updateEmail(req: Request, _res: Response, email: string){
     const session = await getLoginSession(req);
 
     const user = await User.updateEmail(session.id, email);
     return { user }
 }
 
-async function updatePassword(req: Request, res: Response, input: IUserUpdatePasswordInput){
+async function updatePassword(req: Request, _res: Response, input: IUserUpdatePasswordInput){
     const session = await getLoginSession(req);
 
     const retrievedUser = await User.retrieve(session.email);
