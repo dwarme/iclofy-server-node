@@ -1,5 +1,5 @@
 # iclofy-server-node
-# Sample server
+# Sample node server application
 
 # DATABASE TABLES - POSTGRESS
 
